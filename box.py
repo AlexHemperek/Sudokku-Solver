@@ -80,5 +80,3 @@ box.count_in_box()
 box.sort_queue()
 box.solve()
 box.draw()
-# box = [[0, 2, 0], [0, 3, 2], [0, 0, 0]]
-# print(check_row(box, 2, 2))
