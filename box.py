@@ -1,17 +1,17 @@
 from collections import deque
 
 
-def count(line, symbol):
-    return line.count(symbol)
+def count(row, symbol):
+    return row.count(symbol)
 
 
-def check_line(line, symbol):
-    return symbol in line
+def check_row(row, symbol):
+    return symbol in row
 
 
-def check_row(object, symbol, row):
+def check_column(object, symbol, column):
     for line in object:
-        if symbol == line[row]:
+        if symbol == line[column]:
             return True
     return False
 
@@ -23,20 +23,20 @@ class Box:
         self.count_of_number = {}
         self.queue = deque([0])*dimension
 
-    def add(self, line):
-        self.matrix.append(line)
+    def add(self, row):
+        self.matrix.append(row)
 
     def draw(self):
-        for line in self.matrix:
-            print(f'{line}')
+        for row in self.matrix:
+            print(f'{row}')
 
     def count_in_box(self):
         self.count_of_number[0] = 0
         number = 1
         while number <= self.dimension:
             counter = 0
-            for line in self.matrix:
-                counter += count(line, number)
+            for row in self.matrix:
+                counter += count(row, number)
             self.count_of_number[number] = counter
             number += 1
 
@@ -55,19 +55,19 @@ class Box:
             number += 1
 
     def solve(self):
+        column = 0
         row = 0
-        line = 0
         queue = 0
         while queue < self.dimension:
-            while line < self.dimension:
-                while row < self.dimension:
-                    if not check_line(self.matrix[line], self.queue[queue]) and not check_row(self.matrix, self.queue[queue], row) and self.matrix[line][row] == 0:
-                        self.matrix[line][row] = self.queue[queue]
+            while row < self.dimension:
+                while column < self.dimension:
+                    if not check_row(self.matrix[row], self.queue[queue]) and not check_column(self.matrix, self.queue[queue], column) and self.matrix[row][column] == 0:
+                        self.matrix[row][column] = self.queue[queue]
                         self.count_of_number[self.queue[queue]] += 1
-                    row += 1
-                row = 0
-                line += 1
-            line = 0
+                    column += 1
+                column = 0
+                row += 1
+            row = 0
             queue += 1
 
 
